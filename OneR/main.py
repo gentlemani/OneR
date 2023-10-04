@@ -7,7 +7,7 @@ def main():
     train_sample_size = .7  # Training percentage
     class_column_name = 'Play'
 
-    dataset = pandas.read_csv(filename,skipinitialspace=True)
+    dataset = pandas.read_csv(filename, skipinitialspace=True)
 
     x_train = dataset.sample(frac=train_sample_size)
     y_train = x_train[class_column_name]
@@ -17,8 +17,9 @@ def main():
     y_test = x_test[class_column_name]
     x_test = x_test.drop(columns=[class_column_name])
 
-    error_rate,model = OneR.fit(x_train, y_train)
-    results = OneR.tests(x_test,y_test,model)
+    model = OneR.fit(x_train, y_train)
+    total_tests, results = OneR.tests(x_test, y_test, model)
+    OneR.print_results(results, model, total_tests)
 
 
 if __name__ == '__main__':
